@@ -1,7 +1,21 @@
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { FilterWrapper, FilterInput, Button } from './Filter.styled';
+import { filterContacts } from 'redux/filterSlice';
 
-export const Filter = ({ onChange, value, onClick }) => {
+export const Filter = () => {
+  const filter = useSelector(state => state.filter);
+
+  const dispatch = useDispatch();
+
+  const handleFilterChange = event => {
+    const { value } = event.currentTarget;
+    dispatch(filterContacts(value));
+  };
+
+  const clearFilter = () => {
+    dispatch(filterContacts(''));
+  };
   return (
     <>
       <FilterWrapper>
@@ -11,12 +25,12 @@ export const Filter = ({ onChange, value, onClick }) => {
             id="filter"
             name="filter"
             placeholder="Enter to search..."
-            value={value}
-            onChange={onChange}
+            value={filter}
+            onChange={handleFilterChange}
           />
         </label>
 
-        <Button type="button" onClick={onClick}>
+        <Button type="button" onClick={clearFilter}>
           Clear
         </Button>
       </FilterWrapper>

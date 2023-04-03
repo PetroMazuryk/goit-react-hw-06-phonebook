@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { addContact } from 'redux/contactSlice';
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix';
 import { Button, Form, FormWrapper, InputForm } from './ContactForm.styled';
 
-export const PhonebookForm = ({ contacts, addContact }) => {
+export const PhonebookForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -33,7 +38,7 @@ export const PhonebookForm = ({ contacts, addContact }) => {
       Notify.failure(`${contact.name} is already added to contact list`);
       return;
     } else {
-      addContact(contact);
+      dispatch(addContact(contact));
     }
 
     setName('');
