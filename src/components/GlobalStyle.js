@@ -65,4 +65,7 @@ export const GlobalStyle = createGlobalStyle`
         input {
          border: none;
         }
+
+    
+
 `;
