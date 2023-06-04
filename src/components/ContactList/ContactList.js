@@ -8,7 +8,7 @@ export const ContactList = () => {
 
   const filter = useSelector(state => state.filter);
 
-  const getFilteredContacts = number => {
+  const getFilteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
 
     return contacts.filter(contact =>
@@ -20,9 +20,9 @@ export const ContactList = () => {
 
   return (
     <List>
-      {contactFilter.map(contact => {
-        return <ContactItem key={contact.id} contact={contact}></ContactItem>;
-      })}
+      {contactFilter.map((contact, index) => (
+        <ContactItem key={contact.id} numbers={index + 1} contact={contact} />
+      ))}
     </List>
   );
 };
